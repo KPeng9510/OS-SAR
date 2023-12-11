@@ -20,6 +20,8 @@
    1. `nturgbd_skeletons_s001_to_s017.zip` (NTU RGB+D 60)
    2. `nturgbd_skeletons_s018_to_s032.zip` (NTU RGB+D 120)
    3. Extract above files to `./data/nturgbd_raw`
+#### ToyotaSmartHome
+1. Request the dataset for 3D skeleton here https://project.inria.fr/toyotasmarthome/
 ### Data Processing
 
 #### Directory Structure
