@@ -1,4 +1,4 @@
-# OS-SAR (Navigating Open Set Scenarios for Skeleton-based Action Recognition)
+# OS-SAR (Navigating Open Set Scenarios for Skeleton-based Action Recognition AAAI2024)--Releasement in Progress
 ![](https://img.shields.io/badge/version-1.0.1-blue)
 [![arxiv badge](https://img.shields.io/badge/arxiv-TODO-red)](TODO)
 [![AAAI](https://img.shields.io/badge/AAAI-2024-%23f1592a?labelColor=%23003973&color=%23be1c1a)](TODO)
