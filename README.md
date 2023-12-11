@@ -49,7 +49,7 @@ Put downloaded data into the following directory structure:
  # Transform the skeleton to the center of the first frame
  python seq_transformation.py
 ```
-# Training & Testing
+## 🎨 Training & Testing
 
 ### Training
 
