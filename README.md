@@ -8,7 +8,7 @@
 - Due to the **```page and format restrictions```** set by AAAI publications, we have omitted some details and appendix content. For the complete version of the paper, including the **```selection of prompts```** and **```experiment details```**, please refer to our [arXiv version](TODO).
 
 ## 🤖 Model Architecture
-![Model_architecture](https://github.com/KPeng9510/OS-SAR/blob/main/figure/main.png)
+![Model_architecture](https://github.com/KPeng9510/OS-SAR/blob/main/main.png)
 
 ## 📚 Dataset Download
 - NTU 60
