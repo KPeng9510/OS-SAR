@@ -61,57 +61,6 @@ vels_test_unseen_out = np.stack(dicty['vels_test_unseen_out'])
 ###########################################################
 # calculate good samples
 ###########################################################
-'''ind_joints = []
-ond_joints = []
-ind_vels = []
-ond_vels = []
-ind_bones = []
-ond_bones = []'''
-
-'''for ind in range(joints_train_rep.shape[0]):
-    l_pred_joints = torch.argmax(torch.nn.functional.softmax(torch.Tensor(joints_train_out[ind])), dim=-1).numpy()
-    l_pred_bones = torch.argmax(torch.nn.functional.softmax(torch.Tensor(bones_train_out[ind])), dim=-1).numpy()
-    l_pred_vels = torch.argmax(torch.nn.functional.softmax(torch.Tensor(vels_train_out[ind])), dim=-1).numpy()
-
-    l_prob_joints = torch.max(torch.nn.functional.softmax(torch.Tensor(joints_train_out[ind])), dim=-1)[0].numpy()
-    l_prob_bones = torch.max(torch.nn.functional.softmax(torch.Tensor(bones_train_out[ind])), dim=-1)[0].numpy()
-    l_prob_vels = torch.max(torch.nn.functional.softmax(torch.Tensor(vels_train_out[ind])), dim=-1)[0].numpy()
-
-
-    indx_joints = l_pred_joints == train_label[ind]
-    indx_vels = l_pred_vels == train_label[ind]
-    indx_bones = l_pred_bones == train_label[ind]
-    #print()
-    if indx_joints.astype(np.float64) + indx_vels.astype(np.float64) + indx_bones.astype(np.float64) >=1:
-        ind_joints.append(joints_train_rep[ind])
-        ind_bones.append(bones_train_rep[ind])
-        ind_vels.append(vels_train_rep[ind])
-    else:
-        ond_joints.append(joints_train_rep[ind])
-        ond_bones.append(bones_train_rep[ind])
-        ond_vels.append(vels_train_rep[ind])'''
-
-'''if indx_joints and l_prob_joints > 0.3:
-        ind_joints.append(joints_train_rep[ind])
-    else:
-        ond_joints.append(joints_train_rep[ind])
-
-    if indx_bones and l_prob_bones > 0.3:
-        ind_bones.append(bones_train_rep[ind])
-    else:
-        ond_bones.append(bones_train_rep[ind])
-
-    if indx_vels and l_prob_bones > 0.3:
-        ind_vels.append(vels_train_rep[ind])
-    else:
-        ond_vels.append(vels_train_rep[ind])'''
-'''ind_joints = np.stack(ind_joints)
-#print(len(ind_joints))
-ond_joints = np.stack(ond_joints)
-ind_vels = np.stack(ind_vels)
-ond_vels = np.stack(ond_vels)
-ind_bones = np.stack(ind_bones)
-ond_bones = np.stack(ond_bones)'''
 
 
 print('KNN joints')
@@ -129,7 +78,6 @@ dist_vels = neigh_vels.kneighbors(np.concatenate([vels_test_seen_rep, vels_test_
 pred_ind_vels = neigh_vels.kneighbors(np.concatenate([vels_test_seen_rep, vels_test_unseen_rep],0))[1][:,0]
 dist_concat = np.stack([dist_joints[:,0], dist_bones[:,0], dist_vels[:,0]], 0)
 pred_concat = np.stack([pred_ind, pred_ind_bones, pred_ind_vels], 0)
-print(pred_concat)
 #print(dist_joints.shape)
 index = np.argmin(dist_concat, axis=0)
 pred_indl = []
@@ -146,14 +94,7 @@ acc = 0.0
 for i, item in enumerate(pred_labels):
     if item == test_seen_label[i]:
         acc += 1
-print('ACC is: ', acc/pred_labels.shape[0])
-'''probab_joints = normalize(np.max(dist_joints, -1)[np.newaxis, :], axis=1)[0]
-#print(normalize(np.max(dist_joints, -1)[np.newaxis, :], axis=1))
-dist_bones = neigh_bones.kneighbors(np.concatenate([bones_test_seen_rep, bones_test_unseen_rep],0))[0]
-probab_bones = normalize(np.max(dist_bones, -1)[np.newaxis, :], axis=1)[0]
 
-dist_vels = neigh_vels.kneighbors(np.concatenate([vels_test_seen_rep, vels_test_unseen_rep],0))[0]
-probab_vels = normalize(np.max(dist_vels, -1)[np.newaxis, :], axis=1)[0]'''
 probab_joints = np.max(dist_joints, -1)[np.newaxis, :][0]
 #print(normalize(np.max(dist_joints, -1)[np.newaxis, :], axis=1))
 probab_bones = np.max(dist_bones, -1)[np.newaxis, :][0]
@@ -164,32 +105,18 @@ probab_vels = np.max(dist_vels, -1)[np.newaxis, :][0]
 ###############################eval before partition of the inw and ino #####################################################
 #probab_joints = np.max(neigh_joints.predict_proba(np.concatenate([joints_test_seen_rep, joints_test_unseen_rep],0)),-1)
 probab_labels = np.concatenate([np.zeros(joints_test_seen_rep.shape[0]), np.ones(joints_test_unseen_rep.shape[0])])
-print(probab_joints)
-print('AUROC FOR joints')
-print(eval_osr(probab_labels, probab_joints))
+
 
 #probab_bones = np.max(neigh_bones.predict_proba(np.concatenate([bones_test_seen_rep, bones_test_unseen_rep],0)),-1)
 probab_labels = np.concatenate([np.zeros(bones_test_seen_rep.shape[0]), np.ones(bones_test_unseen_rep.shape[0])])
-print('AUROC FOR bones')
-print(eval_osr(probab_labels, probab_bones))
+
 
 
 #probab_vels = np.max(neigh_vels.predict_proba(np.concatenate([vels_test_seen_rep, vels_test_unseen_rep],0)),-1)
 #probab_vels = np.concatenate([np.zeros(vels_test_seen_rep.shape[0]), np.ones(vels_test_unseen_rep.shape[0])])
-print('AUROC FOR vels')
-print(eval_osr(probab_labels, probab_vels))
 
-print('AUROC FOR AVERAGE')
-print(eval_osr(probab_labels, (probab_bones + probab_joints + probab_vels)/3))#
 
-print('AUROC FOR Min')
-print(eval_osr(probab_labels, np.min(np.stack([probab_vels, probab_joints, probab_vels]),axis=0)))
 
-print('AUROC FOR Max')
-print(eval_osr(probab_labels, np.max(np.stack([probab_vels, probab_joints, probab_vels]), axis=0)))
-
-print('AUROC FOR Median')
-print(eval_osr(probab_labels, np.median(np.stack([probab_vels, probab_joints, probab_vels]), axis=0)))
 ###############################eval after partition of the inw and ino #####################################################
 
 
@@ -246,7 +173,6 @@ prob_j, pred_j = torch.max(torch.nn.functional.softmax(l_prob_joints_recal, dim=
 prob_b, pred_b = torch.max(torch.nn.functional.softmax(l_prob_bones_recal, dim=-1), dim=-1)
 prob_v, pred_v = torch.max(torch.nn.functional.softmax(l_prob_vels_recal, dim=-1), dim=-1)
 l_prob = (l_prob_bones_recal + l_prob_vels_recal + l_prob_joints_recal)/3
-print(l_prob.shape)
 prob, pred = torch.max(torch.nn.functional.softmax(l_prob, dim=-1), dim=-1)
 
 print(eval_osr(probab_labels, 1-prob))
