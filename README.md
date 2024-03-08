@@ -70,6 +70,7 @@ python main.py --config config/nturgbd120-cross-subject/default.yaml --model mod
 # Example: training CTRGCN on NTU RGB+D 120 cross subject under bone modality
 python main.py --config config/nturgbd120-cross-subject/default.yaml --train_feeder_args bone=True --test_feeder_args bone=True --work-dir work_dir/ntu120/csub/ctrgcn_bone --device 0
 ```
+After the training you could use the test_feature_extraction to extract the features and run LogitsCalib on the generated file.
 ## 📕 Installation
 
 - Python >= 3.6
@@ -83,6 +84,10 @@ python main.py --config config/nturgbd120-cross-subject/default.yaml --train_fee
 Please consider citing this paper if you use the ```code``` or ```data``` from our work.
 Thanks a lot :)
 
-```bigquery
-TODO
-```
+@article{peng2023navigating,
+  title={Navigating Open Set Scenarios for Skeleton-based Action Recognition},
+  author={Peng, Kunyu and Yin, Cheng and Zheng, Junwei and Liu, Ruiping and Schneider, David and Zhang, Jiaming and Yang, Kailun and Sarfraz, M Saquib and Stiefelhagen, Rainer and Roitberg, Alina},
+  journal={arXiv preprint arXiv:2312.06330},
+  year={2023}
+}
+
