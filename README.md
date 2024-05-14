@@ -84,10 +84,13 @@ After the training you could use the test_feature_extraction to extract the feat
 Please consider citing this paper if you use the ```code``` or ```data``` from our work.
 Thanks a lot :)
 
-@article{peng2023navigating,
-  title={Navigating Open Set Scenarios for Skeleton-based Action Recognition},
+@inproceedings{peng2024navigating,
+  title={Navigating open set scenarios for skeleton-based action recognition},
   author={Peng, Kunyu and Yin, Cheng and Zheng, Junwei and Liu, Ruiping and Schneider, David and Zhang, Jiaming and Yang, Kailun and Sarfraz, M Saquib and Stiefelhagen, Rainer and Roitberg, Alina},
-  journal={arXiv preprint arXiv:2312.06330},
-  year={2023}
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={38},
+  number={5},
+  pages={4487--4496},
+  year={2024}
 }
 
